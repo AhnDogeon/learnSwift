@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CenterButton" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TMX-7d-FBc">
+                                <rect key="frame" x="95" y="740" width="200" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-Lx-LbN" customClass="RoundButton" customModule="CenterButton" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="61.333333333333336" height="40"/>
+                                        <state key="normal" title="취소"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75x-Oe-vQX" customClass="RoundButton" customModule="CenterButton" customModuleProvider="target">
+                                        <rect key="frame" x="69.333333333333343" y="0.0" width="61.333333333333343" height="40"/>
+                                        <state key="normal" title="주문"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lT7-AM-egR" customClass="RoundButton" customModule="CenterButton" customModuleProvider="target">
+                                        <rect key="frame" x="138.66666666666666" y="0.0" width="61.333333333333343" height="40"/>
+                                        <state key="normal" title="재할인"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="4Sc-oH-uPI"/>
+                                    <constraint firstAttribute="height" constant="40" id="e65-kP-bvw"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="TMX-7d-FBc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9hf-GW-zfI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="TMX-7d-FBc" secondAttribute="bottom" constant="30" id="SdX-sa-x6y"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-766" y="56"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="75x-Oe-vQX">
+            <size key="intrinsicContentSize" width="30" height="30"/>
+        </designable>
+        <designable name="GGm-Lx-LbN">
+            <size key="intrinsicContentSize" width="30" height="30"/>
+        </designable>
+        <designable name="lT7-AM-egR">
+            <size key="intrinsicContentSize" width="39" height="30"/>
+        </designable>
+    </designables>
+</document>

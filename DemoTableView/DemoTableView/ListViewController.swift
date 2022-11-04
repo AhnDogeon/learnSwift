@@ -55,6 +55,11 @@ struct PictureData:Decodable {
 
 
 class ListViewController: UITableViewController {
+    
+    @IBOutlet var userTableView: UITableView!
+    
+    
+    
     // 출력한 배열 데이터
     var list = Array<ResultsData>()
     
@@ -195,6 +200,14 @@ class ListViewController: UITableViewController {
         print("touch cell \(indexPath.row)")
     }
 
+    
+    // 세그로 뷰스위칭을 하기 전에 데이터 담기
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "segue_detail") {
+            let path = self.userTableView.indexPath(for: sender as! UserCell)
+            (segue.destination as? DetailViewController)?.user = self.list[path!.row]
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.

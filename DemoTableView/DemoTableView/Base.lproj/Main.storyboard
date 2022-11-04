@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jjT-9S-upo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jjT-9S-upo">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -63,6 +64,7 @@
                                     <outlet property="lastName" destination="pnu-ER-hUz" id="tlx-VP-OTP"/>
                                     <outlet property="street" destination="jHd-bg-aHB" id="xQr-lK-S4z"/>
                                     <outlet property="thumbnail" destination="5Wn-h9-SK5" id="0EY-uf-3rx"/>
+                                    <segue destination="3CR-Y1-2MM" kind="show" identifier="segue_detail" id="XV1-O0-lmD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -72,10 +74,32 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="유저 리스트" id="WLP-Pk-GHl"/>
+                    <connections>
+                        <outlet property="userTableView" destination="c0d-FM-jjw" id="jx2-oe-8ga"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sAV-Ua-7AH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1446.1538461538462" y="-214.69194312796208"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="6bG-BR-p71">
+            <objects>
+                <viewController id="3CR-Y1-2MM" customClass="DetailViewController" customModule="DemoTableView" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cQc-jl-YaN">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="hGr-b8-N6V"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="dgL-u9-T2t"/>
+                    <connections>
+                        <outlet property="Navitem" destination="dgL-u9-T2t" id="X6d-cl-Tkk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YnF-Po-3ek" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2317" y="-215"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="c0l-DK-2bj">
