@@ -1,0 +1,7 @@
+{
+   "aps" : {
+     "alert" : "속보!" ,
+     "sound" : "default" ,
+     "link_url" : "https://raywenderlich.com"
+  }
+}

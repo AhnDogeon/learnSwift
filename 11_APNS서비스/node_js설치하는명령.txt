@@ -1,0 +1,21 @@
+(node.js를 언인스톨하는 경우)
+brew uninstall node
+
+(brew를 설치하는 방법)
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+(brew를 언인스톨하는 방법)
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
+
+(node.js설치)
+brew install node
+
+(apn설치)
+터미널에서 Desktop에 있는 상태에서 아래의 명령을 실행한다. 
+mkdir apns  cd apns  npm init --yes  npm install apn --save
+
+(pem파일 생성하기)
+openssl x509 -in aps.cer -inform DER -outform PEM -out cert.pem
+openssl pkcs12 -in Certificates.p12 -out key.pem -nodes
+
+(생성된 2개의 파일을 apns폴더로 복사한다. cert.pem, key.pem)

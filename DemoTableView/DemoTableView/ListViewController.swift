@@ -7,40 +7,130 @@
 
 import UIKit
 
+// 배열로 된 JSON데이터 파싱해오기
+struct Root:Decodable {
+    let results:[ResultsData]
+}
+
+struct ResultsData:Decodable {
+    let name:NameData
+    let location:LocationData
+    let cell:String
+    let picture:PictureData
+    
+    // 클로저
+    func retrieveImage(completionHandler: @escaping (UIImage?, Error?) -> Void) {
+        let task = URLSession.shared.dataTask(with:URL(string: picture.large)!)
+        {
+            data, _, error in
+            guard let data = data, error == nil else {
+                // 문제있을 때 빠져나가는 부분
+                completionHandler(nil, error)
+                return
+            }
+            completionHandler(UIImage(data:data), nil)
+        }
+        // 지속적으로 수행
+        task.resume()
+    }
+}
+
+// 서브키가 있는 경우는 다시 구조체로 정의
+struct NameData:Decodable {
+    let first:String
+    let last:String
+}
+
+struct LocationData:Decodable {
+    let street:StreetData
+}
+
+struct StreetData:Decodable {
+    let name:String
+}
+
+struct PictureData:Decodable {
+    let large:String
+}
+
+
 class ListViewController: UITableViewController {
     // 출력한 배열 데이터
-    var list = Array<UserVO>()
+    var list = Array<ResultsData>()
+    
+    // 데이터 웹서버 통신(웹사이트에 데이터 받아오기)
+    func getRandomUsers() {
+        guard let url = URL(string: "https://randomuser.me/api/?results=20") else {
+            return
+        }
+                
+                let request = URLRequest(url:url)
+                let task = URLSession.shared.dataTask(with:request, completionHandler: {
+                    (data, response, error) -> Void in
+                    if let error = error {
+                        print(error)
+                        return
+                    }
+                    if let data = data {
+                        self.list =  self.parseJsonData(data:data)
+                        // 리로드
+                        OperationQueue.main.addOperation({
+                            self.tableView.reloadData()
+                        })
+                    }
+                })
+                task.resume()
+    }
     
     
+    func parseJsonData(data: Data) -> [ResultsData] {
+
+        var list = [ResultsData]()
+
+        do {
+            let root = try JSONDecoder().decode(Root.self, from: data)
+            print(root.results)
+            print(root.results.count)
+            list = root.results
+            
+        } catch {
+            print(error)
+        }
+
+        return list
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var user = UserVO()
-        user.firstName = "길동"
-        user.lastName = "홍"
-        user.street = "선릉역"
-        user.mobile = "010-222-1234"
-        user.picture = "01"
-        self.list.append(user)
+        self.getRandomUsers()
         
-        
-        user = UserVO()
-        user.firstName = "우치"
-        user.lastName = "전"
-        user.street = "삼성역"
-        user.mobile = "010-333-1234"
-        user.picture = "02"
-        self.list.append(user)
-        
-        
-        user = UserVO()
-        user.firstName = "문수"
-        user.lastName = "박"
-        user.street = "역삼역"
-        user.mobile = "010-555-1234"
-        user.picture = "03"
-        self.list.append(user)
+        // 데이터 하드코딩
+//        var user = UserVO()
+//        user.firstName = "길동"
+//        user.lastName = "홍"
+//        user.street = "선릉역"
+//        user.mobile = "010-222-1234"
+//        user.picture = "01"
+//        self.list.append(user)
+//
+//
+//        user = UserVO()
+//        user.firstName = "우치"
+//        user.lastName = "전"
+//        user.street = "삼성역"
+//        user.mobile = "010-333-1234"
+//        user.picture = "02"
+//        self.list.append(user)
+//
+//
+//        user = UserVO()
+//        user.firstName = "문수"
+//        user.lastName = "박"
+//        user.street = "역삼역"
+//        user.mobile = "010-555-1234"
+//        user.picture = "03"
+//        self.list.append(user)
     }
 
     // MARK: - Table view data source
@@ -75,13 +165,28 @@ class ListViewController: UITableViewController {
         
         // 2) 변수명으로 접근
         // UITableViewCell ==? UserCell로 다운캐스팅
-        cell.lastName?.text = row.lastName
-        cell.firstName?.text = row.firstName
-        cell.street?.text = row.street
-        cell.cellPhone?.text = row.mobile
         
-        // 이미지 출력
-        cell.thumbnail.image = UIImage(named: row.picture!)
+//        cell.lastName?.text = row.lastName
+//        cell.firstName?.text = row.firstName
+//        cell.street?.text = row.street
+//        cell.cellPhone?.text = row.mobile
+        
+        // 기존이름에서 변경
+        cell.lastName?.text = row.name.last
+        cell.firstName?.text = row.name.first
+        cell.street?.text = row.location.street.name
+        cell.cellPhone?.text = row.cell
+        
+        //이미지의 경우 비동기 형태의 처리가 필요하다.
+        row.retrieveImage { image, error in
+            //UI에 대한 접근은 UI를 소유하고 있는 메인 쓰레드에서 처리해야 한다.
+            DispatchQueue.main.async {
+                cell.thumbnail.image = image
+            }
+        }
+        
+        // 디버깅용 코드
+        print("cell 생성을 종료 : \(indexPath.row)행")
         
         return cell
     }
@@ -137,3 +242,5 @@ class ListViewController: UITableViewController {
     */
 
 }
+
+
